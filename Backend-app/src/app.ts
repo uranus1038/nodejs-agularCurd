@@ -1,11 +1,13 @@
 import express, { Request, Response } from 'express';
-import usersRouter from './api/login';
+import cors from "cors";
+import Login from './api/login';
 class App {
-    private app: express.Application = express();;
+    private app: express.Application = express();
     constructor(port:number) {
+        this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: false }));
-        this.app.use('/a',usersRouter);
+        this.app.use('/a',routeLogin.app);
         this.listen(port); 
         this.mountRoutes();
     }
@@ -22,4 +24,5 @@ class App {
         });
     }
 }
+const routeLogin = new Login();
 const serve = new App(8000);
